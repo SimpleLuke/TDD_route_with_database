@@ -10,6 +10,16 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  context 'GET /albums/:id' do
+    it 'returns the Doolittle album' do
+      response = get('album/1')
+
+    expect(response.body).to include '<h1>Doolittle</h1>'
+    expect(response.body).to include 'Release year: 1989'
+    expect(response.body).to include 'Artist: Pixies'
+    end
+  end
+
   context 'POST /albums' do
     it 'returns 200 and creates a new album' do
       response = post('/albums', title:'Votage', release_year:2022, artist_id:2)
@@ -44,4 +54,5 @@ describe Application do
 
     end
   end
+  
 end

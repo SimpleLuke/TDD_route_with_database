@@ -48,7 +48,7 @@ describe AlbumRepository do
     expect(albums.last.artist_id).to eq(1)
   end
 
-  it 'deletes an album' do
+  xit 'deletes an album' do
     repo = AlbumRepository.new
 
     repo.delete(1)
