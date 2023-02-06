@@ -10,4 +10,15 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  context 'POST /albums' do
+    it 'returns 200 and creates a new album' do
+      response = post('/albums', title:'Votage', release_year:2022, artist_id:2)
+
+      expect(response.status).to eq 200
+      expect(response.body).to eq ''
+
+      response = get('/albums')
+      expect(response.body).to include('Votage')
+    end
+  end
 end
