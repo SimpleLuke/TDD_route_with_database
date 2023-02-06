@@ -10,7 +10,8 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
-  context 'GET /albums/:id' do
+
+  context 'GET /album/:id' do
     it 'returns the Doolittle album' do
       response = get('album/1')
 
@@ -55,4 +56,14 @@ describe Application do
     end
   end
   
+  context 'GET /albums' do
+    it 'returns info about all albums' do
+      response = get('albums')
+      
+    expect(response.status).to eq 200
+    expect(response.body).to include '<h1>Albums</h1>'
+    expect(response.body).to include 'Title: Doolittle'
+    expect(response.body).to include 'Title: Votage'
+    end
+  end
 end
