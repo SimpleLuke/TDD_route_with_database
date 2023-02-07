@@ -47,11 +47,12 @@ describe Application do
   end
 
   context 'GET /artists' do
-    it 'returns 200 OK with artist names' do
+    it 'returns 200 OK and HTML page with the list of artists with a link to the artist page' do
       response = get('/artists')
 
       expect(response.status).to eq 200
-      expect(response.body).to eq 'Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos'
+    expect(response.body).to include '<a href="/artists/1">Pixies</a>'
+    expect(response.body).to include '<a href="/artists/2">ABBA</a>'
     end
   end
 
@@ -82,7 +83,7 @@ describe Application do
 
       response = get('/artists')
       expect(response.status).to eq 200
-      expect(response.body).to eq 'Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos, Wild nothing'
+      expect(response.body).to include 'Wild nothing'
 
     end
   end
