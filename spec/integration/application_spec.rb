@@ -79,7 +79,7 @@ describe Application do
       response = post('/artists',name:'Wild nothing',genre:'Indie')
 
       expect(response.status).to eq 200 
-      expect(response.body).to eq ''
+      expect(response.body).to include '<p>You created a new artist Wild nothing!</p>'
 
       response = get('/artists')
       expect(response.status).to eq 200
@@ -96,6 +96,19 @@ describe Application do
     expect(response.body).to include '<form action="/albums" method="POST">'
     expect(response.body).to include '<label for="title">Title:</label>'
       expect(response.body).to include '<input type="text" name="title" />'
+    end
+  end
+
+  context 'GET /artists/new' do
+    it 'returns 200 and creates a new artist' do
+      response = get('/artists/new')
+
+    expect(response.status).to eq 200
+    expect(response.body).to include '<form action="/artists" method="POST">'
+    expect(response.body).to include '<label for="name">Name:</label>'
+      expect(response.body).to include '<input type="text" name="name" />'
+    expect(response.body).to include '<label for="genre">Genre:</label>'
+      expect(response.body).to include '<input type="text" name="genre" />'
     end
   end
 

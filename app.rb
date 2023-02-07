@@ -25,6 +25,11 @@ class Application < Sinatra::Base
 
   post '/albums' do
     title, release_year, artist_id = params[:title], params[:release_year], params[:artist_id]
+    if title == nil || release_year == nil || artist_id == nil ||
+       title == '' || release_year == '' || artist_id == ''
+      status 400
+      return ''
+    end
     album = Album.new
     album.title = title
     album.release_year = release_year
@@ -52,12 +57,17 @@ class Application < Sinatra::Base
     artist.name = params[:name]
     artist.genre = params[:genre]
 
+    @artist_name = artist.name
+
     repo = ArtistRepository.new
     repo.create(artist)
 
-    return ''
+    return erb(:artist_created)
   end
 
+  get '/artists/new' do
+    return erb(:new_artists)
+  end
   get '/artists/:id' do
   repo = ArtistRepository.new
   @artist = repo.find(params[:id])
