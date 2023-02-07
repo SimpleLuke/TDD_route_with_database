@@ -30,10 +30,12 @@ class Application < Sinatra::Base
     album.release_year = release_year
     album.artist_id = artist_id
 
+    @album_title = title
+
     repo = AlbumRepository.new
     repo.create(album)
 
-    return nil 
+    return erb(:album_created) 
   end
 
   get '/artists' do
@@ -61,6 +63,11 @@ class Application < Sinatra::Base
   @artist = repo.find(params[:id])
 
     return erb(:artist)
+  end
+
+  get '/albums/new' do
+    
+    return erb(:new_album)
   end
 
   get '/album/:id' do
